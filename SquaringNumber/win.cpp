@@ -1,7 +1,4 @@
 #include "win.h"
-#include <QVBoxLayout>
-#include <QMessageBox>
-#include <QTextCodec>
 
 Win::Win(QWidget *parent):QWidget(parent)
 {
@@ -10,18 +7,14 @@ Win::Win(QWidget *parent):QWidget(parent)
     frame = new QFrame(this);
     frame->setFrameShadow(QFrame::Raised);
     frame->setFrameShape(QFrame::Panel);
-    inputLabel = new QLabel(codec->toUnicode("Введите число:"),
-                            this);
+    inputLabel = new QLabel(codec->toUnicode("Введите число:"),this);
     inputEdit = new QLineEdit("",this);
     StrValidator *v=new StrValidator(inputEdit);
     inputEdit->setValidator(v);
-    outputLabel = new QLabel(codec->toUnicode("Результат:"),
-                             this);
+    outputLabel = new QLabel(codec->toUnicode("Результат:"),this);
     outputEdit = new QLineEdit("",this);
-    nextButton = new QPushButton(codec->toUnicode("Следующее"),
- this);
-    exitButton = new QPushButton(codec->toUnicode("Выход"),
- this);
+    nextButton = new QPushButton(codec->toUnicode("Следующее"),this);
+    exitButton = new QPushButton(codec->toUnicode("Выход"),this);
     // компоновка приложения выполняется согласно рисунку 2.
     QVBoxLayout *vLayout1 = new QVBoxLayout(frame);
     vLayout1->addWidget(inputLabel);
@@ -36,13 +29,11 @@ Win::Win(QWidget *parent):QWidget(parent)
     QHBoxLayout *hLayout = new QHBoxLayout(this);
     hLayout->addWidget(frame);
     hLayout->addLayout(vLayout2);
+
     begin();
-    connect(exitButton,SIGNAL(clicked(bool)),
-            this,SLOT(close()));
-    connect(nextButton,SIGNAL(clicked(bool)),
-            this,SLOT(begin()));
-    connect(inputEdit,SIGNAL(returnPressed()),
-            this,SLOT(calc()));
+    connect(exitButton, &QPushButton::clicked, this, &Win::close);
+    connect(nextButton, &QPushButton::clicked, this, &Win::begin);
+    connect(inputEdit, &QLineEdit::returnPressed, this, &Win::calc);
 }
 void Win::begin()
 {
@@ -57,7 +48,7 @@ void Win::begin()
 }
 void Win::calc()
 {
-    bool Ok=true; float r,a;
+    bool Ok=true; float r, a;
     QString str=inputEdit->text();
     a=str.toDouble(&Ok);
     if (Ok)

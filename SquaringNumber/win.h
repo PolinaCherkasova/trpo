@@ -1,15 +1,7 @@
 #ifndef win_h
 #define win_h
 
-#include <QtGui>
-#include <QWidget>
-#include <QFrame>
-#include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QString>
-#include <QValidator>
-#include <QObject>
+#include <QtWidgets>
 
 class Win:public QWidget // класс окна
 {
@@ -29,6 +21,7 @@ public slots:
     void begin(); // метод начальной настройки интерфейса
     void calc(); // метод реализации вычислений
 };
+
 class StrValidator:public QValidator // класс компонента проверки ввода
 {
 public:
